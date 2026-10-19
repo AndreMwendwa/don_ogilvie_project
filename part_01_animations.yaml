@@ -1,0 +1,1476 @@
+# Source: Maths-Grade8-12-Tips_Tricks.pdf
+# PDF text has been automatically extracted; review equations/fractions against original pages.
+video:
+  clear_between_questions: true
+  transition_run_time: 0.5
+  transition_wait: 0.3
+  voiceover:
+    provider: openai
+    openai:
+      api_key_env: OPENAI_API_KEY
+      model: gpt-4o-mini-tts
+      voice: alloy
+      speed: 1.0
+    cache_dir: .voiceover_cache
+    replace_video: true
+questions:
+  1:
+    objects:
+      title:
+        type: text
+        content: Question 1 — Basic Multiplication and Division
+        font_size: 35
+        position:
+          to_edge: UP
+          buff: 0.45
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 28
+        position:
+          move_to:
+          - -4.5
+          - 2.85
+          - 0
+      problem:
+        type: mathtex
+        content: 4\cdot 4^2
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - 2.05
+          - 0
+      step_1:
+        type: mathtex
+        content: 4^1\cdot 4^2
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - 0.825
+          - 0
+      step_2:
+        type: mathtex
+        content: 4^{1+2}
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - -0.4
+          - 0
+      step_3:
+        type: mathtex
+        content: 4^3
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - -1.625
+          - 0
+      step_4:
+        type: mathtex
+        content: '64'
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - -2.85
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 1. basic multiplication and division. Let us simplify the expression.
+    - action: write
+      target: problem
+      voiceover: First, look carefully at the expression on the screen.
+      after: 0.35
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: A number without a written exponent has exponent one.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Multiply powers with the same base by adding their exponents.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: One plus two equals three.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_4
+      voiceover: Four cubed equals sixty four.
+      run_time: 1.3
+      after: 0.3
+    - action: highlight
+      target: step_4
+      id: answer_box
+      shape: rectangle
+      buff: 0.25
+      after: 1.0
+  2:
+    objects:
+      title:
+        type: text
+        content: Question 2 — Basic Multiplication and Division
+        font_size: 35
+        position:
+          to_edge: UP
+          buff: 0.45
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 28
+        position:
+          move_to:
+          - -4.5
+          - 2.85
+          - 0
+      problem:
+        type: mathtex
+        content: 4\cdot4^3
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - 2.05
+          - 0
+      step_1:
+        type: mathtex
+        content: 4^1\cdot4^3
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - 0.825
+          - 0
+      step_2:
+        type: mathtex
+        content: 4^{1+3}
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - -0.4
+          - 0
+      step_3:
+        type: mathtex
+        content: 4^4
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - -1.625
+          - 0
+      step_4:
+        type: mathtex
+        content: '256'
+        font_size: 48
+        position:
+          move_to:
+          - 0
+          - -2.85
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 2. basic multiplication and division. Let us simplify the expression.
+    - action: write
+      target: problem
+      voiceover: First, look carefully at the expression on the screen.
+      after: 0.35
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Write the first four as four to the power of one.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Add the exponents because the bases match.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: One plus three equals four.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_4
+      voiceover: Four to the fourth power is two hundred and fifty six.
+      run_time: 1.3
+      after: 0.3
+    - action: highlight
+      target: step_4
+      id: answer_box
+      shape: rectangle
+      buff: 0.25
+      after: 1.0
+  3:
+    objects:
+      title:
+        type: text
+        content: Question 3 — Basic Multiplication and Division
+        font_size: 35
+        position:
+          to_edge: UP
+          buff: 0.45
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 28
+        position:
+          move_to:
+          - -4.5
+          - 2.85
+          - 0
+      problem:
+        type: mathtex
+        content: 2k^4\cdot4k^2
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - 2.05
+          - 0
+      step_1:
+        type: mathtex
+        content: (2\cdot4)k^{4+2}
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -0.4
+          - 0
+      step_2:
+        type: mathtex
+        content: 8k^6
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -2.85
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 3. basic multiplication and division. Let us simplify the expression.
+    - action: write
+      target: problem
+      voiceover: First, look carefully at the expression on the screen.
+      after: 0.35
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply the coefficients and add exponents of k.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Two times four is eight, and four plus two is six.
+      run_time: 1.3
+      after: 0.3
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.25
+      after: 1.0
+  4:
+    objects:
+      title:
+        type: text
+        content: Question 4 — Basic Multiplication and Division
+        font_size: 35
+        position:
+          to_edge: UP
+          buff: 0.45
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 28
+        position:
+          move_to:
+          - -4.5
+          - 2.85
+          - 0
+      problem:
+        type: mathtex
+        content: 2x^3y^3\cdot3x^2y^4
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - 2.05
+          - 0
+      step_1:
+        type: mathtex
+        content: (2\cdot3)x^{3+2}y^{3+4}
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -0.4
+          - 0
+      step_2:
+        type: mathtex
+        content: 6x^5y^7
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -2.85
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 4. basic multiplication and division. Let us simplify the expression.
+    - action: write
+      target: problem
+      voiceover: First, look carefully at the expression on the screen.
+      after: 0.35
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Group the coefficients, then add exponents for x and for y.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Two times three is six; x has exponent five and y has exponent seven.
+      run_time: 1.3
+      after: 0.3
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.25
+      after: 1.0
+  5:
+    objects:
+      title:
+        type: text
+        content: Question 5 — Basic Multiplication and Division
+        font_size: 35
+        position:
+          to_edge: UP
+          buff: 0.45
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 28
+        position:
+          move_to:
+          - -4.5
+          - 2.85
+          - 0
+      problem:
+        type: mathtex
+        content: 2x^4y^4\cdot3x^3y^2
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - 2.05
+          - 0
+      step_1:
+        type: mathtex
+        content: (2\cdot3)x^{4+3}y^{4+2}
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -0.4
+          - 0
+      step_2:
+        type: mathtex
+        content: 6x^7y^6
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -2.85
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 5. basic multiplication and division. Let us simplify the expression.
+    - action: write
+      target: problem
+      voiceover: First, look carefully at the expression on the screen.
+      after: 0.35
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply the coefficients and add powers with matching bases.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The coefficient is six. The exponents are seven for x and six for y.
+      run_time: 1.3
+      after: 0.3
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.25
+      after: 1.0
+  6:
+    objects:
+      title:
+        type: text
+        content: Question 6 — Basic Multiplication and Division
+        font_size: 35
+        position:
+          to_edge: UP
+          buff: 0.45
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 28
+        position:
+          move_to:
+          - -4.5
+          - 2.85
+          - 0
+      problem:
+        type: mathtex
+        content: 4v^3\cdot u^2v^2\cdot2uv^3
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - 2.05
+          - 0
+      step_1:
+        type: mathtex
+        content: (4\cdot2)u^{2+1}v^{3+2+3}
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -0.4
+          - 0
+      step_2:
+        type: mathtex
+        content: 8u^3v^8
+        font_size: 54
+        position:
+          move_to:
+          - 0
+          - -2.85
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 6. basic multiplication and division. Let us simplify the expression.
+    - action: write
+      target: problem
+      voiceover: First, look carefully at the expression on the screen.
+      after: 0.35
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply the numeric factors; add the exponents of u and of v.
+      run_time: 1.3
+      after: 0.3
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The coefficient is eight, the exponent of u is three, and that of v is eight.
+      run_time: 1.3
+      after: 0.3
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.25
+      after: 1.0
+  7:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 7
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (2^2)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 2^{2\cdot3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 2^6
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+      line_3:
+        type: mathtex
+        content: '64'
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - -1.0000000000000004
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 7. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_3
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_3
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  8:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 8
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (2x^2)^2
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 2^2(x^2)^2
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 4x^4
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 8. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  9:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 9
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (2a^2)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 2^3a^{2\cdot3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 8a^6
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 9. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  10:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 10
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (4xy)^2
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 4^2x^2y^2
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 16x^2y^2
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 10. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  11:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 11
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (4xy^2)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 4^3x^3y^{2\cdot3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 64x^3y^6
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 11. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  12:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 12
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (2x^3y^2)^4
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 2^4x^{3\cdot4}y^{2\cdot4}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 16x^{12}y^8
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 12. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  13:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 13
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (3x^2y^4)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 3^3x^{2\cdot3}y^{4\cdot3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 27x^6y^{12}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 13. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  14:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 14
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (3u^4v^3)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 3^3u^{4\cdot3}v^{3\cdot3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: 27u^{12}v^9
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 14. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  15:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 15
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (4a^2)^{-1}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: \frac{1}{4a^2}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 15. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_1
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  16:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 16
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (2x^{-2})^{-1}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 2^{-1}x^2
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: \frac{x^2}{2}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 16. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  17:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 17
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (3x^{-4}y^3)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 27x^{-12}y^9
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: \frac{27y^9}{x^{12}}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 17. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  18:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 18
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (2u^{-3}v^2)^3
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: 8u^{-9}v^6
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: \frac{8v^6}{u^9}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 18. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  19:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 19
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (4x^{-3}y^4)^{-2}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: \frac{x^6}{16y^8}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 19. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_1
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  20:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 20
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: (3x^{-2}y^{-3})^{-2}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: \frac{x^4y^6}{9}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 20. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_1
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  21:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 21
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: \frac{2n^4}{2n^3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: n^{4-3}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: n
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 21. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0
+  22:
+    objects:
+      title:
+        type: text
+        content: Part 1 | Question 22
+        font_size: 32
+        position:
+          move_to:
+          - 0
+          - 3.25
+          - 0
+      line_0:
+        type: mathtex
+        content: \frac{b^2}{b^4}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 2.15
+          - 0
+      line_1:
+        type: mathtex
+        content: b^{2-4}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 1.0999999999999999
+          - 0
+      line_2:
+        type: mathtex
+        content: \frac{1}{b^2}
+        font_size: 45
+        position:
+          move_to:
+          - 0
+          - 0.04999999999999982
+          - 0
+    actions:
+    - action: write
+      target: title
+      voiceover: Question 22. Follow the exponent rule and simplify.
+      after: 0.2
+    - action: write
+      target: line_0
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_1
+      run_time: 1.1
+      after: 0.5
+    - action: write
+      target: line_2
+      run_time: 1.1
+      after: 0.5
+    - action: highlight
+      target: line_2
+      id: answer_box
+      buff: 0.18
+      after: 1.0

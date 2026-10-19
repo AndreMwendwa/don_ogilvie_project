@@ -1,0 +1,4 @@
+.voiceover_cache/
+__pycache__/
+videos/
+videos.zip

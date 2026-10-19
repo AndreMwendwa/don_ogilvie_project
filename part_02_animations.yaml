@@ -1,0 +1,2634 @@
+video:
+  clear_between_questions: true
+  transition_run_time: 0.5
+  transition_wait: 0.3
+  voiceover:
+    provider: openai
+    openai:
+      api_key_env: OPENAI_API_KEY
+      model: gpt-4o-mini-tts
+      voice: alloy
+      speed: 1.0
+    cache_dir: .voiceover_cache
+    replace_video: true
+questions:
+  1:
+    objects:
+      title:
+        type: text
+        content: Question 1 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (2x^{3}y^{-2}z^{4})(-3x^{-5}y^{4}z^{-2})
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: -6x^{3-5}y^{-2+4}z^{4-2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: -6x^{-2}y^{2}z^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: -\frac{6y^{2}z^{2}}{x^{2}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 1. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply coefficients and add exponents of matching bases.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Evaluate the exponent sums.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Move the negative power of x into the denominator. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  2:
+    objects:
+      title:
+        type: text
+        content: Question 2 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (-4a^{3}b^{-4})^{2}(2a^{-2}b^{3})^{3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (16a^{6}b^{-8})(8a^{-6}b^{9})
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 128a^{6-6}b^{-8+9}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: 128b
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 2. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Apply each outside power to every factor.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Multiply coefficients and add corresponding exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: The power of a is zero, so it equals one. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  3:
+    objects:
+      title:
+        type: text
+        content: Question 3 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \left(\frac{3x^{4}y^{-3}}{2z^{2}}\right)^{3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{3^{3}x^{12}y^{-9}}{2^{3}z^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac{27x^{12}y^{-9}}{8z^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{27x^{12}}{8y^{9}z^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 3. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Cube the numerator and denominator separately.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Evaluate the cubes.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Write the answer using only positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  4:
+    objects:
+      title:
+        type: text
+        content: Question 4 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (5u^{-2}v^{3}w^{-1})^{-2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: 5^{-2}u^{4}v^{-6}w^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac{u^{4}w^{2}}{25v^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 4. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply each inner exponent by negative two.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: A negative exponent means a reciprocal. Simplify the coefficient. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  5:
+    objects:
+      title:
+        type: text
+        content: Question 5 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (-2p^{2}q^{-4}r^{0})^{-3}(4p^{-3}q^{2})^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (-2p^{2}q^{-4})^{-3}(4p^{-3}q^{2})^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.86
+          - 0
+      step_2:
+        type: mathtex
+        content: \left(-\frac18p^{-6}q^{12}\right)(16p^{-6}q^{4})
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.08000000000000007
+          - 0
+      step_3:
+        type: mathtex
+        content: -2p^{-12}q^{16}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.0200000000000002
+          - 0
+      step_4:
+        type: mathtex
+        content: -\frac{2q^{16}}{p^{12}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.9600000000000002
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 5. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Any nonzero base raised to zero is one.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Apply both outer powers.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Multiply the coefficients and add exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_4
+      voiceover: Move the negative power to the denominator. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_4
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  6:
+    objects:
+      title:
+        type: text
+        content: Question 6 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (3a^{2}b^{-3}c^{4})^{2}(2a^{-4}b^{2}c^{-1})^{-3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (9a^{4}b^{-6}c^{8})(\frac18a^{12}b^{-6}c^{3})
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac98a^{16}b^{-12}c^{11}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{9a^{16}c^{11}}{8b^{12}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 6. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Distribute the outer powers to each factor.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Multiply coefficients and add the exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Express the result with positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  7:
+    objects:
+      title:
+        type: text
+        content: Question 7 — Complex Multi-Variable Products and Powers
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \left(\frac{2x^{-3}y^{4}}{x^{2}y^{-1}}\right)^{-2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (2x^{-5}y^{5})^{-2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac14x^{10}y^{-10}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{x^{10}}{4y^{10}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 7. Complex Multi-Variable Products and Powers. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Subtract exponents inside the fraction.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Multiply exponents by negative two.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Move the negative exponent into the denominator. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  8:
+    objects:
+      title:
+        type: text
+        content: Question 8 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{18x^{5}y^{-2}z^{3}}{24x^{-2}y^{3}z^{3}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac34x^{5-(-2)}y^{-2-3}z^{3-3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac34x^{7}y^{-5}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{3x^{7}}{4y^{5}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 8. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Reduce eighteen over twenty four, then subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The z factors cancel because their exponent difference is zero.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Rewrite with positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  9:
+    objects:
+      title:
+        type: text
+        content: Question 9 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{(2a^{-2}b^{3})^{3}}{4a^{4}b^{-2}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{8a^{-6}b^{9}}{4a^{4}b^{-2}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 2a^{-10}b^{11}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{2b^{11}}{a^{10}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 9. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Cube each factor in the numerator.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Divide coefficients and subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Move the negative a power below the fraction bar. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  10:
+    objects:
+      title:
+        type: text
+        content: Question 10 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{-15u^{6}v^{-3}w^{2}}{-5u^{-2}v^{4}w^{-4}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: 3u^{6-(-2)}v^{-3-4}w^{2-(-4)}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 3u^{8}v^{-7}w^{6}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{3u^{8}w^{6}}{v^{7}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 10. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: The two negatives cancel. Divide coefficients and subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Simplify the differences.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Use positive exponents in the final answer. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  11:
+    objects:
+      title:
+        type: text
+        content: Question 11 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \left(\frac{4a^{-1}b^{2}}{2a^{3}b^{-4}}\right)^{-3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (2a^{-4}b^{6})^{-3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac18a^{12}b^{-18}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{a^{12}}{8b^{18}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 11. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Simplify the quotient inside the parentheses.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Apply the power of negative three.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Rewrite with positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  12:
+    objects:
+      title:
+        type: text
+        content: Question 12 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{(3x^{2}y^{-4})^{-2}}{(2x^{-3}y^{2})^{3}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{\frac19x^{-4}y^{8}}{8x^{-9}y^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac1{72}x^{-4-(-9)}y^{8-6}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{x^{5}y^{2}}{72}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 12. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Expand the numerator and denominator powers.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Divide coefficients and subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Simplify to the final result. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  13:
+    objects:
+      title:
+        type: text
+        content: Question 13 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{(a^{-2}b^{3}c^{-1})^{4}}{(a^{3}b^{-2}c^{2})^{-2}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{a^{-8}b^{12}c^{-4}}{a^{-6}b^{4}c^{-4}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: a^{-2}b^{8}c^{0}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{b^{8}}{a^{2}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 13. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Apply each outer exponent.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Subtract denominator exponents from numerator exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: The c factor is one. Move a to the denominator. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  14:
+    objects:
+      title:
+        type: text
+        content: Question 14 — Quotient Rule and Nested Fractions
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{12x^{-4}y^{2}z^{-3}}{(3x^{2}y^{-3}z^{2})(2x^{-1}y^{4}z^{-5})}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{12x^{-4}y^{2}z^{-3}}{6x^{1}y^{1}z^{-3}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 2x^{-5}y^{1}z^{0}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{2y}{x^{5}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 14. Quotient Rule and Nested Fractions. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply the two factors in the denominator.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Divide coefficients and subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: The z factors cancel. Make all exponents positive. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  15:
+    objects:
+      title:
+        type: text
+        content: Question 15 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (16x^{8}y^{-4})^{\frac14}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: 16^{\frac14}x^{2}y^{-1}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 2x^{2}y^{-1}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{2x^{2}}{y}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 15. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply every exponent by one fourth.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The fourth root of sixteen is two.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Use positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  16:
+    objects:
+      title:
+        type: text
+        content: Question 16 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (27a^{-9}b^{6}c^{12})^{\frac23}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: 27^{\frac23}a^{-6}b^{4}c^{8}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 9a^{-6}b^{4}c^{8}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{9b^{4}c^{8}}{a^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 16. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply each variable exponent by two thirds.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The cube root of twenty seven is three, and three squared is nine.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Move the negative a power to the denominator. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  17:
+    objects:
+      title:
+        type: text
+        content: Question 17 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{(8x^{6}y^{-3})^{\frac23}}{(4x^{-4}y^{2})^{\frac12}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{4x^{4}y^{-2}}{2x^{-2}y}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 2x^{6}y^{-3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{2x^{6}}{y^{3}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 17. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Evaluate the fractional powers separately. For real square roots, the denominator simplification assumes positive x and y.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Divide coefficients and subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Write the simplified result using positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  18:
+    objects:
+      title:
+        type: text
+        content: Question 18 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (x^{\frac12}y^{\frac23})(x^{\frac32}y^{\frac13})
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: x^{\frac12+\frac32}y^{\frac23+\frac13}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: x^{2}y
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 18. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Add exponents of the same bases.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The x exponents total two and the y exponents total one. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  19:
+    objects:
+      title:
+        type: text
+        content: Question 19 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \left(\frac{a^{-\frac23}b^{\frac12}}{a^{\frac13}b^{-\frac52}}\right)^{3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (a^{-1}b^{3})^{3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: a^{-3}b^{9}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{b^{9}}{a^{3}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 19. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Subtract the fractional exponents in the quotient.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Multiply each exponent by three.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Express the answer with positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  20:
+    objects:
+      title:
+        type: text
+        content: Question 20 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (81x^{-4}y^{8})^{-\frac34}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: 81^{-\frac34}x^{3}y^{-6}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: \frac1{27}x^{3}y^{-6}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: \frac{x^{3}}{27y^{6}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 20. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Multiply all exponents by negative three quarters.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: The fourth root of eighty one is three. Three to the third power is twenty seven.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Rewrite with positive exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  21:
+    objects:
+      title:
+        type: text
+        content: Question 21 — Fractional and Rational Exponents
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{(125u^{-6}v^{9})^{\frac13}}{(16u^{8}v^{-4})^{-\frac12}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{5u^{-2}v^{3}}{\frac14u^{-4}v^{2}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 20u^{-2-(-4)}v^{3-2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: 20u^{2}v
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 21. Fractional and Rational Exponents. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Evaluate cube roots in the numerator and the negative half power in the denominator.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Dividing by one fourth multiplies by four. Subtract exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Simplify the exponents. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  22:
+    objects:
+      title:
+        type: text
+        content: Question 22 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: x^{n+2}\cdot x^{2n-1}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: x^{(n+2)+(2n-1)}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: x^{3n+1}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 22. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Add exponents because the bases are the same.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Combine like terms. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_2
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  23:
+    objects:
+      title:
+        type: text
+        content: Question 23 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{y^{4n-2}}{y^{n+3}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: y^{(4n-2)-(n+3)}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: y^{4n-2-n-3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: y^{3n-5}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 23. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Subtract the denominator exponent from the numerator exponent.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Distribute the negative sign.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Combine like terms. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  24:
+    objects:
+      title:
+        type: text
+        content: Question 24 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: (2^{n}\cdot4^{n+1})^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (2^{n}\cdot(2^{2})^{n+1})^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.86
+          - 0
+      step_2:
+        type: mathtex
+        content: (2^{n}\cdot2^{2n+2})^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.08000000000000007
+          - 0
+      step_3:
+        type: mathtex
+        content: (2^{3n+2})^{2}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.0200000000000002
+          - 0
+      step_4:
+        type: mathtex
+        content: 2^{6n+4}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.9600000000000002
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 24. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Rewrite four as two squared.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Multiply the nested exponents.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Add exponents inside the parentheses.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_4
+      voiceover: Multiply the exponent by two. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_4
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  25:
+    objects:
+      title:
+        type: text
+        content: Question 25 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{9^{x+1}}{3^{2x-1}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{(3^{2})^{x+1}}{3^{2x-1}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.86
+          - 0
+      step_2:
+        type: mathtex
+        content: 3^{(2x+2)-(2x-1)}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.08000000000000007
+          - 0
+      step_3:
+        type: mathtex
+        content: 3^{3}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.0200000000000002
+          - 0
+      step_4:
+        type: mathtex
+        content: '27'
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.9600000000000002
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 25. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Rewrite nine as three squared.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Apply the power and quotient rules.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Simplify the exponent.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_4
+      voiceover: Three cubed equals twenty seven. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_4
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  26:
+    objects:
+      title:
+        type: text
+        content: Question 26 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{2^{n+4}-2^{n}}{2^{n}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{2^{n}(2^{4}-1)}{2^{n}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 2^{4}-1
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: '15'
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 26. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Factor out the common power of two from the numerator.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Cancel the common nonzero factor.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Sixteen minus one is fifteen. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  27:
+    objects:
+      title:
+        type: text
+        content: Question 27 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \frac{3^{x+2}+3^{x+1}}{3^{x}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: \frac{3^{x}(3^{2}+3)}{3^{x}}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.6799999999999999
+          - 0
+      step_2:
+        type: mathtex
+        content: 3^{2}+3
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.44000000000000017
+          - 0
+      step_3:
+        type: mathtex
+        content: '12'
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.5600000000000003
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 27. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Factor out three to the power x.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Cancel the common power of three.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Nine plus three equals twelve. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_3
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
+  28:
+    objects:
+      title:
+        type: text
+        content: Question 28 — Algebraic Exponents and Factoring
+        font_size: 29
+        position:
+          to_edge: UP
+          buff: 0.35
+      problem_label:
+        type: text
+        content: 'Simplify:'
+        font_size: 25
+        position:
+          move_to:
+          - -5
+          - 2.65
+          - 0
+      problem:
+        type: mathtex
+        content: \left(\frac{x^{a+b}}{x^{a-b}}\right)^{c}\left(\frac{x^{b+c}}{x^{b-c}}\right)^{a}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 1.8
+          - 0
+      step_1:
+        type: mathtex
+        content: (x^{(a+b)-(a-b)})^{c}(x^{(b+c)-(b-c)})^{a}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - 0.86
+          - 0
+      step_2:
+        type: mathtex
+        content: (x^{2b})^{c}(x^{2c})^{a}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -0.08000000000000007
+          - 0
+      step_3:
+        type: mathtex
+        content: x^{2bc}x^{2ac}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.0200000000000002
+          - 0
+      step_4:
+        type: mathtex
+        content: x^{2bc+2ac}
+        font_size: 35
+        position:
+          move_to:
+          - 0
+          - -1.9600000000000002
+          - 0
+    actions:
+    - action: play
+      animations:
+      - action: write
+        target: title
+      - action: fade_in
+        target: problem_label
+      voiceover: Question 28. Algebraic Exponents and Factoring. We will simplify this expression using exponent rules.
+    - action: write
+      target: problem
+      voiceover: Here is the original expression. Follow each transformation carefully.
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_1
+      voiceover: Subtract exponents in each fraction.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_2
+      voiceover: Simplify the exponent differences.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_3
+      voiceover: Multiply exponents when raising a power to a power.
+      run_time: 1.3
+      after: 0.25
+    - action: play
+      animations:
+      - action: write
+        target: step_4
+      voiceover: Add exponents for the final product. This is our final answer.
+      run_time: 1.3
+      after: 0.25
+    - action: highlight
+      target: step_4
+      id: answer_box
+      shape: rectangle
+      buff: 0.2
+      after: 0.7
