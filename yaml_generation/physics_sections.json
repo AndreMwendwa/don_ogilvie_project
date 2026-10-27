@@ -1,0 +1,75 @@
+{
+  "source_pdf": "Physics-Grade10-12_tips_tricks.pdf",
+  "sections": [
+    {
+      "part": 1,
+      "title": "Equations of Motion \u2014 Set A",
+      "start_page": 8,
+      "end_page": 10,
+      "start_marker": "STUDENT WORKBOOK \u2014 EQUATIONS OF MOTION",
+      "end_marker": "STEP-BY-STEP SOLUTIONS SECTION",
+      "kind": "numeric",
+      "expected_questions": 25
+    },
+    {
+      "part": 2,
+      "title": "Equations of Motion \u2014 Set B",
+      "start_page": 12,
+      "end_page": 15,
+      "start_marker": "STUDENT WORKBOOK \u2014 SET B",
+      "end_marker": "STEP-BY-STEP SOLUTIONS \u2014 SET B",
+      "kind": "numeric",
+      "expected_questions": 25
+    },
+    {
+      "part": 3,
+      "title": "Grade 11 SPH3U \u2014 Kinematics, first workbook",
+      "start_page": 20,
+      "end_page": 22,
+      "start_marker": "STUDENT WORKBOOK \u2014 GRADE 11 PHYSICS",
+      "end_marker": "INSTRUCTOR SOLUTIONS",
+      "kind": "numeric",
+      "expected_questions": 25
+    },
+    {
+      "part": 4,
+      "title": "Grade 11 SPH3U \u2014 Kinematics, second workbook",
+      "start_page": 30,
+      "end_page": 32,
+      "start_marker": "SPH3U \u2013 Kinematics Workbook",
+      "end_marker": "SECTION 2 \u2014 INSTRUCTOR SOLUTIONS",
+      "kind": "numeric",
+      "expected_questions": 25
+    },
+    {
+      "part": 5,
+      "title": "Grade 12 SPH4U \u2014 Projectile and Circular Motion",
+      "start_page": 48,
+      "end_page": 50,
+      "start_marker": "SECTION 1 \u2014 STUDENT WORKBOOK",
+      "end_marker": "SECTION 2",
+      "kind": "numeric",
+      "expected_questions": 25
+    },
+    {
+      "part": 6,
+      "title": "Grade 12 SPH4U \u2014 Mixed Physics MCQ",
+      "start_page": 63,
+      "end_page": 69,
+      "start_marker": "SECTION 1 \u2014 GRADE 12 PHYSICS MULTIPLE-CHOICE",
+      "end_marker": "SECTION 2 \u2014 ANSWERS",
+      "kind": "mcq",
+      "expected_questions": 25
+    },
+    {
+      "part": 7,
+      "title": "First-Year University Physics \u2014 Mixed MCQ",
+      "start_page": 76,
+      "end_page": 83,
+      "start_marker": "SECTION 1 \u2014 FIRST-YEAR UNIVERSITY PHYSICS",
+      "end_marker": "SECTION 2 \u2014 ANSWERS",
+      "kind": "mcq",
+      "expected_questions": 25
+    }
+  ]
+}
