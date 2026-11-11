@@ -81,6 +81,14 @@ def extract_actions(question: dict) -> set[str]:
     return found - {None}
 
 
+# Keep this list in sync with YAMLAnimation.run_action and animation_from_spec.
+# Reference YAML is an example, not an exhaustive declaration of available actions.
+SUPPORTED_RENDERER_ACTIONS = frozenset({
+    "write", "create", "fade_in", "fade_out", "transform", "play",
+    "highlight", "wait", "narrate", "show_step_group", "clear_step_group",
+})
+
+
 def schema_from_reference(reference: dict) -> dict:
     assert isinstance(reference, dict) and isinstance(reference.get("questions"), dict)
     examples = reference["questions"]
@@ -94,7 +102,7 @@ def schema_from_reference(reference: dict) -> dict:
         example_keys.update(q.keys())
     return {
         "allowed_types": allowed_types - {None},
-        "allowed_actions": allowed_actions,
+        "allowed_actions": allowed_actions | SUPPORTED_RENDERER_ACTIONS,
         "question_keys": example_keys,
         "example": next(iter(examples.values()))
     }
@@ -151,6 +159,7 @@ def validate_question(question: dict, spec: dict) -> list[str]:
             elif abs(coord[0]) > 7.5 or abs(coord[1]) > 4.5:
                 errors.append(f"object {objid!r}: move_to likely outside 16:9 scene")
     shown = set()
+    active_groups = set()
     for index, a in enumerate(question["actions"]):
         if not isinstance(a, dict):
             errors.append(f"actions[{index}] must be a mapping")
@@ -169,8 +178,36 @@ def validate_question(question: dict, spec: dict) -> list[str]:
             target = anim.get("target")
             if target is not None and target not in objects:
                 errors.append(f"actions[{index}]: missing target object {target!r}")
-            if kind in {"write", "fade_in"} and target is not None:
+            if kind in {"write", "fade_in", "create"} and target is not None:
                 shown.add(target)
+            if kind == "show_step_group":
+                group_steps = anim.get("steps")
+                if not isinstance(group_steps, list) or not group_steps:
+                    errors.append(f"actions[{index}]: show_step_group requires steps")
+                else:
+                    ids = [s.get("target") for s in group_steps if isinstance(s, dict)]
+                    if len(ids) != len(group_steps) or len(set(ids)) != len(ids):
+                        errors.append(f"actions[{index}]: invalid or duplicate group steps")
+                    for step in group_steps:
+                        if not isinstance(step, dict):
+                            continue
+                        sid = step.get("target")
+                        if sid not in objects:
+                            errors.append(f"actions[{index}]: missing group step target {sid!r}")
+                        if step.get("animation", "write") not in {"write", "create", "fade_in"}:
+                            errors.append(f"actions[{index}]: invalid group step animation")
+                        if step.get("voiceover", step.get("narration")) is not None and not str(step.get("voiceover", step.get("narration"))).strip():
+                            errors.append(f"actions[{index}]: empty grouped narration")
+                        shown.add(sid)
+                group_id = str(anim.get("group", "default"))
+                if group_id in active_groups:
+                    errors.append(f"actions[{index}]: group {group_id!r} shown before clear")
+                active_groups.add(group_id)
+            if kind == "clear_step_group":
+                group_id = str(anim.get("group", "default"))
+                if group_id not in active_groups:
+                    errors.append(f"actions[{index}]: clear_step_group for inactive group {group_id!r}")
+                active_groups.discard(group_id)
             if kind == "highlight" and target not in shown:
                 errors.append(f"actions[{index}]: highlight before showing {target!r}")
         voiceover = a.get("voiceover")
@@ -288,7 +325,7 @@ Create only a mapping with two keys: 'objects' and 'actions', NOT a 'questions' 
 ALLOWED OBJECT TYPES: {sorted(spec['allowed_types'])}
 ALLOWED ACTION NAMES: {sorted(spec['allowed_actions'])}
 Ensure 'problem' object states the original full problem, with exact exponents; use title, problem_label, problem, step_1, step_2, ... if possible.
-Display each meaningful step in sequence, narrate each step, and highlight final answer. Preserve source conditions and correct domain restrictions.
+Display the problem clearly and briefly, then fade it out before calculations. Use show_step_group and clear_step_group to show 2-4 solution steps at once in successive groups, and narrate each nested step. Keep a short title, but avoid standalone text while groups are visible. Highlight the final answer if appropriate. Preserve source conditions and correct domain restrictions.
 Do not simply claim the source result; solve and verify independently.
 """
         if errors:
@@ -455,6 +492,8 @@ async def main(args):
         max_retries=args.api_retries,
     )
     master = args.prompt.read_text(encoding="utf-8")
+    if args.layout_prompt and args.layout_prompt.is_file():
+        master += "\n\n" + args.layout_prompt.read_text(encoding="utf-8")
     LOG.info("Using locally extracted PDF question text; no PDF uploaded to any API")
     part_semaphore = asyncio.Semaphore(args.concurrency)
     question_semaphore = asyncio.Semaphore(args.question_concurrency)
@@ -476,9 +515,11 @@ async def main(args):
 def arguments():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--parts", type=parse_parts, default=parse_parts("1-7"))
-    p.add_argument("--pdf", type=Path, default=ROOT / "Physics-Grade10-12_tips_tricks.pdf")
+    p.add_argument("--pdf", type=Path, default=ROOT / "Physics-Grade10-12_tips_tricks-OK.pdf")
     p.add_argument("--reference", type=Path, default=ROOT / "part_01_animations.yaml")
     p.add_argument("--prompt", type=Path, default=ROOT / "physics_master_prompt.txt")
+    p.add_argument("--layout-prompt", type=Path, default=ROOT / "physics_layout_prompt.txt",
+                   help="Additional layout rules appended to the original master prompt")
     p.add_argument("--output", type=Path, default=ROOT / "physics_output")
     p.add_argument("--sections", type=Path, default=DEFAULT_SECTIONS)
     p.add_argument("--preview-sections", action="store_true", help="Offline: save question-only page excerpts, no API key needed")

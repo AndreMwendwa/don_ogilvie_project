@@ -24,12 +24,12 @@ def parse_parts(s):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--renderer", type=Path, required=True)
+    parser.add_argument("--renderer", type=Path, default=ROOT / "physics_renderer.py")
     parser.add_argument("--scene", default="YAMLAnimation")
-    parser.add_argument("--parts", type=parse_parts, default=parse_parts("3-13"))
-    parser.add_argument("--input", type=Path, default=ROOT / "output")
+    parser.add_argument("--parts", type=parse_parts, default=parse_parts("1-7"))
+    parser.add_argument("--input", type=Path, default=ROOT / "physics_output")
     parser.add_argument("--quality", choices=("l", "m", "h", "k"), default="l")
-    parser.add_argument("--output", type=Path, default=ROOT / "videos")
+    parser.add_argument("--output", type=Path, default=ROOT / "physics_videos")
     parser.add_argument("--manim", default="manim")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
@@ -47,7 +47,9 @@ def main():
         cmd = [args.manim, f"-q{args.quality}", "--media_dir", str(target_dir),
                "--output_file", name, str(renderer), args.scene, "--", str(source_yaml)]
         print(f"\n[Part {part}] Running: {subprocess.list2cmdline(cmd)}", flush=True)
-        result = subprocess.run(cmd, cwd=str(renderer.parent), check=False)
+        env = os.environ.copy()
+        env["MANIM_YAML_FILE"] = str(source_yaml)
+        result = subprocess.run(cmd, cwd=str(renderer.parent), check=False, env=env)
         if result.returncode != 0:
             raise SystemExit(f"Manim failed at part {part} (exit {result.returncode}).")
         videos = list(target_dir.rglob(f"{name}.mp4"))

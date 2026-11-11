@@ -1,0 +1,57 @@
+video:
+  clear_between_questions: true
+  transition_run_time: 0.5
+  transition_wait: 0.25
+  voiceover:
+    provider: openai
+    model: gpt-4o-mini-tts
+    voice: cedar
+questions:
+  1:
+    objects:
+      title:
+        type: text
+        content: 'Example: balance a chemical equation'
+        font_size: 32
+        position:
+          to_edge: UP
+      problem:
+        type: text
+        content: 'Balance the reaction of hydrogen and oxygen to form water.'
+        font_size: 24
+        position:
+          next_to: title
+          direction: DOWN
+      line_1:
+        type: chemical_equation
+        content: 'H2 + O2 -> H2O'
+        font_size: 44
+        position:
+          move_to: [0, 0.6, 0]
+      line_2:
+        type: chemical_equation
+        content: '2H2 + O2 -> 2H2O'
+        font_size: 44
+        position:
+          move_to: [0, -0.7, 0]
+    actions:
+      - action: write
+        target: title
+      - action: write
+        target: problem
+      - action: wait
+        duration: 1.5
+      - action: fade_out
+        target: problem
+      - action: show_step_group
+        group: balancing
+        spacing: 0.6
+        steps:
+          - target: line_1
+            voiceover: 'The unbalanced equation is hydrogen plus oxygen yields water.'
+          - target: line_2
+            voiceover: 'The balanced equation has two hydrogen molecules and two water molecules.'
+        hold_duration: 2
+      - action: clear_step_group
+        group: balancing
+        duration: 0.8

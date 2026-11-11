@@ -1,0 +1,29 @@
+PHYSICS ANIMATION LAYOUT RULES (REQUIRED)
+
+Use text for natural language and mathtex for formulas. Write LaTeX expressions in single-quoted YAML strings.
+
+Always include an object named 'problem' containing the FULL source problem. Display it near the top, wrapped (auto_wrap: true, wrap_width: 55, max_width: 11.5, max_height: 2.7); if it is long, use font_size 22-26. Show briefly, then fade it out before working groups.
+Keep a short title (30-34pt) at the top, at most 1-2 lines. Do not leave a long problem statement on screen while calculation groups appear.
+
+For the solution, use groups of 2-4 meaningful steps. Use 'show_step_group' for sequential entry of each step while earlier steps remain visible, followed by 'clear_step_group' to fade all group steps out SIMULTANEOUSLY. Repeat for subsequent stages. Each show_step_group step has target and voiceover fields; do not narrate as a separate 'narrate' action. Example:
+
+  - action: show_step_group
+    group: setup
+    spacing: 0.45
+    hold_duration: 1.5
+    steps:
+      - target: formula
+        voiceover: Explain the formula.
+      - target: substitution
+        voiceover: Explain the substitution.
+      - target: simplified
+        voiceover: Explain the result.
+  - action: clear_step_group
+    group: setup
+    duration: 0.7
+
+The group renderer arranges steps automatically; omit arbitrary 'position' coordinates on grouped step objects. Reserve the title region. Keep each text step short, use font_size 24-30 for explanation and 32-42 for mathtex.
+
+Never show large text objects on top of each other. For more than 4 steps create multiple groups. Do not reuse a group ID before clearing it. Avoid reusing a step object in multiple groups; define a distinct ID if needed. Use final-answer highlighting only after its target is visible, and remove the highlight before changing stages.
+
+No new object types are required; supported object types are those from the reference YAML. The new group actions are available even if the reference YAML does not demonstrate them.

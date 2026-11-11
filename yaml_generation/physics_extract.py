@@ -46,7 +46,7 @@ def load_sections(config: Path = DEFAULT_SECTIONS) -> dict[int, dict]:
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--pdf',type=Path,default=ROOT/'Physics-Grade10-12_tips_tricks.pdf')
+    p.add_argument('--pdf',type=Path,default=ROOT/'Physics-Grade10-12_tips_tricks-OK.pdf')
     p.add_argument('--sections',type=Path,default=DEFAULT_SECTIONS)
     p.add_argument('--output',type=Path,default=ROOT/'section_previews')
     p.add_argument('--parts',default='1-7',help='comma-separated section IDs or ranges')
