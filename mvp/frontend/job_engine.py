@@ -10,14 +10,14 @@ import tempfile
 from datetime import datetime, timezone
 from uuid import uuid4
 
-JOB_ROOT = Path(os.environ.get('OGILVIE_JOBS_DIR', '/jobs')).resolve()
-SCRIPT_ROOT = Path(os.environ.get('OGILVIE_SCRIPT_DIR', '/app/mvp/rendering')).resolve()
-RENDERER = Path(os.environ.get('OGILVIE_RENDERER', str(SCRIPT_ROOT / 'manim_multi_question_openai_mux_fixed.py'))).resolve()
-REFERENCE = os.environ.get('OGILVIE_REFERENCE', '')
-PROMPT = os.environ.get('OGILVIE_PROMPT', '')
-LAYOUT_PROMPT = os.environ.get('OGILVIE_LAYOUT_PROMPT', '')
-SECTIONS = os.environ.get('OGILVIE_SECTIONS', '')
-MAX_UPLOAD_MB = int(os.environ.get('OGILVIE_MAX_UPLOAD_MB', '80'))
+JOB_ROOT = Path(os.environ.get('TNK_JOBS_DIR', '/jobs')).resolve()
+SCRIPT_ROOT = Path(os.environ.get('TNK_SCRIPT_DIR', '/app/mvp/rendering')).resolve()
+RENDERER = Path(os.environ.get('TNK_RENDERER', str(SCRIPT_ROOT / 'manim_multi_question_openai_mux_fixed.py'))).resolve()
+REFERENCE = os.environ.get('TNK_REFERENCE', '')
+PROMPT = os.environ.get('TNK_PROMPT', '')
+LAYOUT_PROMPT = os.environ.get('TNK_LAYOUT_PROMPT', '')
+SECTIONS = os.environ.get('TNK_SECTIONS', '')
+MAX_UPLOAD_MB = int(os.environ.get('TNK_MAX_UPLOAD_MB', '80'))
 PARTS_RE = re.compile(r'^[1-9]\d*(?:-[1-9]\d*)?(?:,[1-9]\d*(?:-[1-9]\d*)?)*$')
 STATES = {'queued', 'running', 'completed', 'failed'}
 
@@ -86,7 +86,7 @@ def create_job(filename: str, pdf_bytes: bytes, parts: str, model: str, quality:
     if stages not in ('full', 'inventory', 'yaml'):
         raise ValueError('Invalid pipeline stage')
     active = [j for j in list_jobs() if j.get('status') in ('queued', 'running')]
-    if len(active) >= int(os.environ.get('OGILVIE_MAX_ACTIVE_JOBS', '1')):
+    if len(active) >= int(os.environ.get('TNK_MAX_ACTIVE_JOBS', '1')):
         raise ValueError('The rendering worker is busy. Please submit after the current job finishes.')
     jid = uuid4().hex
     root = job_dir(jid)

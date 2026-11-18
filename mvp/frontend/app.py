@@ -1,4 +1,4 @@
-"""Don Ogilvie Studio — Streamlit UI for the existing physics Manim pipeline."""
+"""Don TNK Studio — Streamlit UI for the existing physics Manim pipeline."""
 from __future__ import annotations
 import os
 from pathlib import Path
@@ -223,7 +223,7 @@ else:
         st.markdown('**Pipeline configuration**')
         st.write('Generator directory:',str(SCRIPT_ROOT))
         st.write('Renderer:',str(RENDERER))
-        st.write('Jobs directory:',str(Path(os.environ.get('OGILVIE_JOBS_DIR','/jobs'))))
+        st.write('Jobs directory:',str(Path(os.environ.get('TNK_JOBS_DIR','/jobs'))))
         for label,key in [('Generator','generate_physics_parts.py'),('Render entrypoint','render_videos.py')]:
             found=(SCRIPT_ROOT/key).is_file()
             st.write(('✅' if found else '❌'),label)
