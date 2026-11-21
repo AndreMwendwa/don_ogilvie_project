@@ -1,1 +1,2 @@
-streamlit>=1.38,<2
+streamlit>=1.80,<2
+Pillow>=10.0,<13
