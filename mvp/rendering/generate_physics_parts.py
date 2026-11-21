@@ -9,16 +9,17 @@ import asyncio
 import copy
 import json
 import logging
+import math
 import os
 import re
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 import yaml
 from physics_extract import extract_section, load_sections, DEFAULT_SECTIONS
-from openrouter_client import OpenRouterClient
+from openrouter_client import ImageInput, OpenRouterClient
 
 ROOT = Path(__file__).resolve().parent
 PROJECT_ROOT = ROOT.parent.parent
@@ -54,6 +55,138 @@ REVIEW_SCHEMA = {
         "issues": {"type": "array", "items": {"type": "string"}}
     }
 }
+MAX_IMAGES = 8
+MAX_IMAGE_BYTES = 10 * 1024 * 1024
+MAX_IMAGE_REQUEST_BYTES = 20 * 1024 * 1024
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+JPEG_SIGNATURE = b"\xff\xd8\xff"
+
+
+def infer_job_root(manifest_path: Path) -> Path:
+    """Infer the filesystem job root from input/reviewed_questions.json."""
+    manifest_path = manifest_path.resolve()
+    if manifest_path.parent.name == "input":
+        return manifest_path.parent.parent
+    return manifest_path.parent
+
+
+def validate_reviewed_manifest(data: dict, job_root: Path) -> dict:
+    """Strictly validate an explicitly reviewed image-question manifest."""
+    job_root = job_root.resolve()
+    if not isinstance(data, dict):
+        raise ValueError("Reviewed manifest must be a JSON object")
+    if set(data) != {"schema_version", "source_assets", "questions"}:
+        raise ValueError("Reviewed manifest has missing or unsupported top-level fields")
+    if (not isinstance(data["schema_version"], int)
+            or isinstance(data["schema_version"], bool)
+            or data["schema_version"] != 1):
+        raise ValueError("Reviewed manifest schema_version must be 1")
+
+    source_assets = data["source_assets"]
+    if not isinstance(source_assets, list) or not source_assets:
+        raise ValueError("Reviewed manifest must contain at least one source asset")
+    if len(source_assets) > MAX_IMAGES:
+        raise ValueError(f"At most {MAX_IMAGES} source images are allowed")
+
+    source_directory = (job_root / "source" / "images").resolve()
+    expected_assets: dict[str, dict[str, Any]] = {}
+    total_bytes = 0
+    for index, asset in enumerate(source_assets):
+        if not isinstance(asset, dict):
+            raise ValueError(f"source_assets[{index}] must be an object")
+        if set(asset) != {"asset_id", "path", "mime_type", "original_name"}:
+            raise ValueError(f"source_assets[{index}] has missing or unsupported fields")
+        asset_id = asset["asset_id"]
+        if not isinstance(asset_id, str) or not asset_id.strip():
+            raise ValueError(f"source_assets[{index}] has an invalid asset_id")
+        if asset_id in expected_assets:
+            raise ValueError(f"Duplicate source asset_id: {asset_id}")
+        if not isinstance(asset["path"], str) or not asset["path"]:
+            raise ValueError(f"Source asset {asset_id} has an invalid path")
+        if asset["mime_type"] not in ("image/jpeg", "image/png"):
+            raise ValueError(f"Source asset {asset_id} has unsupported MIME type")
+        if not isinstance(asset["original_name"], str):
+            raise ValueError(f"Source asset {asset_id} has an invalid original_name")
+
+        relative = Path(asset["path"])
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError(f"Unsafe source asset path: {asset['path']}")
+        path = (job_root / relative).resolve()
+        try:
+            path.relative_to(source_directory)
+        except ValueError:
+            raise ValueError(f"Source asset {asset_id} is outside {source_directory}")
+        if path.is_symlink():
+            raise ValueError(f"Source asset may not be a symbolic link: {path}")
+        if not path.is_file():
+            raise ValueError(f"Missing referenced source image: {path}")
+        data_bytes = path.read_bytes()
+        if not data_bytes:
+            raise ValueError(f"Referenced source image is empty: {path}")
+        if len(data_bytes) > MAX_IMAGE_BYTES:
+            raise ValueError(f"Source image exceeds {MAX_IMAGE_BYTES} bytes: {path}")
+        if asset["mime_type"] == "image/png" and not data_bytes.startswith(PNG_SIGNATURE):
+            raise ValueError(f"{path}: invalid PNG signature")
+        if asset["mime_type"] == "image/jpeg" and not data_bytes.startswith(JPEG_SIGNATURE):
+            raise ValueError(f"{path}: invalid JPEG signature")
+        total_bytes += len(data_bytes)
+        if total_bytes > MAX_IMAGE_REQUEST_BYTES:
+            raise ValueError(f"Source images exceed {MAX_IMAGE_REQUEST_BYTES} byte request limit")
+        expected_assets[asset_id] = asset
+
+    questions = data["questions"]
+    if not isinstance(questions, list) or not questions:
+        raise ValueError("Reviewed manifest must contain at least one question")
+    seen_ids: set[str] = set()
+    for index, question in enumerate(questions):
+        if not isinstance(question, dict):
+            raise ValueError(f"questions[{index}] must be an object")
+        required = {"id", "problem", "source_assets", "notes"}
+        if not required.issubset(question) or set(question) - required - {"source_regions"}:
+            raise ValueError(f"questions[{index}] has missing or unsupported fields")
+        ident = question["id"]
+        if not isinstance(ident, str) or not ident.strip():
+            raise ValueError(f"questions[{index}] has an empty id")
+        if ident in seen_ids:
+            raise ValueError(f"Duplicate question id: {ident}")
+        seen_ids.add(ident)
+        if not isinstance(question["problem"], str) or not question["problem"].strip():
+            raise ValueError(f"Question {ident} has empty problem text")
+        if not isinstance(question["notes"], str):
+            raise ValueError(f"Question {ident} notes must be a string")
+        referenced = question["source_assets"]
+        if not isinstance(referenced, list) or not referenced:
+            raise ValueError(f"Question {ident} must reference at least one source asset")
+        if len(set(referenced)) != len(referenced):
+            raise ValueError(f"Question {ident} repeats a source asset")
+        for asset_id in referenced:
+            if not isinstance(asset_id, str) or asset_id not in expected_assets:
+                raise ValueError(f"Question {ident} references unknown asset_id {asset_id!r}")
+        regions = question.get("source_regions", [])
+        if not isinstance(regions, list):
+            raise ValueError(f"Question {ident} source_regions must be an array")
+        for region in regions:
+            if not isinstance(region, dict) or set(region) != {"asset_id", "bbox_normalized"}:
+                raise ValueError(f"Question {ident} has an invalid source region")
+            if region["asset_id"] not in referenced:
+                raise ValueError(f"Question {ident} region references an unassociated asset")
+            bbox = region["bbox_normalized"]
+            if not isinstance(bbox, list) or len(bbox) != 4:
+                raise ValueError(f"Question {ident} region bbox must contain four numbers")
+            if not all(isinstance(value, (int, float)) and not isinstance(value, bool)
+                       and math.isfinite(value) for value in bbox):
+                raise ValueError(f"Question {ident} region bbox values must be finite numbers")
+            x, y, width, height = bbox
+            if x < 0 or y < 0 or width <= 0 or height <= 0 or x + width > 1 or y + height > 1:
+                raise ValueError(f"Question {ident} region bbox is outside normalized image bounds")
+    return data
+
+
+def load_reviewed_manifest(path: Path, job_root: Path | None = None) -> tuple[dict, Path]:
+    path = path.resolve()
+    job_root = (job_root or infer_job_root(path)).resolve()
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return validate_reviewed_manifest(data, job_root), job_root
 
 
 def dump_yaml(data: Any) -> str:
@@ -266,9 +399,11 @@ def validate_inventory(data: dict, part: int) -> None:
 
 
 async def api_json(client: OpenRouterClient, model: str, schema: dict,
-                   name: str, instruction: str) -> dict:
+                   name: str, instruction: str,
+                   images: Sequence[ImageInput] | None = None) -> dict:
     """Use the shared OpenRouterClient JSON-schema/fallback transport."""
-    return await client.json(model=model, schema=schema, name=name, text=instruction)
+    return await client.json(model=model, schema=schema, name=name, text=instruction,
+                             images=images)
 
 
 async def get_inventory(client, model, part, dest, master, force, section, section_text):
@@ -300,7 +435,10 @@ Return structured JSON only."""
 
 
 async def generate_question(client, model, part, entry, reference, spec,
-                            master, output, force, math_review, max_repairs):
+                            master, output, force, math_review, max_repairs,
+                            *, images: Sequence[ImageInput] | None = None,
+                            source_context: dict | None = None,
+                            image_mode: bool = False):
     ident = entry["id"]
     if output.exists() and not force:
         try:
@@ -313,11 +451,22 @@ async def generate_question(client, model, part, entry, reference, spec,
     errors = []
     candidate = None
     for attempt in range(max_repairs + 1):
+        source_label = "REVIEWED IMAGE QUESTION" if image_mode else "PHYSICS WORKBOOK SECTION"
+        source_location = ""
+        if image_mode:
+            source_location = (
+                "\nSOURCE CONTEXT: this is a user-reviewed photo/image question. "
+                "Use the original referenced image context for diagrams and visual conditions; "
+                "do not replace or re-transcribe the approved problem text.\n"
+                f"{json.dumps(source_context or {}, ensure_ascii=False, indent=2)}"
+            )
+        else:
+            source_location = f"\nSOURCE PAGE: {entry['source_page']}; SOURCE NOTES: {entry['notes']}"
         prompt = f"""{master}
 
-TASK: Generate ONE complete Manim YAML question definition for PHYSICS WORKBOOK SECTION {part}, question ID {ident}.
+TASK: Generate ONE complete Manim YAML question definition for {source_label} {part}, question ID {ident}.
 EXACT SOURCE PROBLEM (approved inventory): {entry['problem']}
-SOURCE PAGE: {entry['source_page']}; SOURCE NOTES: {entry['notes']}
+{source_location}
 
 REFERENCE SINGLE-QUESTION YAML:
 {exemplar}
@@ -334,7 +483,7 @@ Do not simply claim the source result; solve and verify independently.
                        + "\nValidation/review issues:\n" + "\n".join(errors[:30])
                        + "\nPrevious YAML:\n" + (candidate or "")[:22000])
         result = await api_json(client, model, QUESTION_SCHEMA, "animation_question",
-                                prompt)
+                                prompt, images=images)
         candidate = result["question_yaml"].strip()
         if candidate.startswith("```"):
             candidate = re.sub(r"^```(?:yaml)?\s*", "", candidate)
@@ -346,11 +495,16 @@ Do not simply claim the source result; solve and verify independently.
             errors = [f"Invalid YAML: {exc}"]
             question = None
         if not errors and math_review:
-            review_prompt = f"""You are an INDEPENDENT rigorous physics reviewer. Check units, sign conventions, assumptions, physical reasonableness, significant figures, and every multi-part result. The original question from the PDF is:
+            review_source = "approved reviewed image question" if image_mode else "original question from the PDF"
+            source_context_text = ""
+            if image_mode:
+                source_context_text = "\nImage provenance and regions:\n" + json.dumps(source_context or {}, ensure_ascii=False, indent=2)
+            review_prompt = f"""You are an INDEPENDENT rigorous physics reviewer. Check units, sign conventions, assumptions, physical reasonableness, significant figures, and every multi-part result. The {review_source} is:
 {entry['problem']}
-Review this proposed Manim animation question definition independently for mathematical correctness, domain assumptions, transformations, transcription, final result, and fidelity of explanations. DO NOT approve if a materially wrong mathematical step or a missing/incorrect result is present. Output JSON with approved=true/false and precise actionable issues (empty when approved). Treat the source PDF as authoritative for original question statements but independently verify its mathematical claims. YAML follows:\n{candidate}"""
+{source_context_text}
+Review this proposed Manim animation question definition independently for mathematical correctness, domain assumptions, transformations, transcription, final result, and fidelity of explanations. DO NOT approve if a materially wrong mathematical step or a missing/incorrect result is present. Output JSON with approved=true/false and precise actionable issues (empty when approved). Treat the approved source text and referenced images as authoritative for the question, but independently verify its mathematical claims. YAML follows:\n{candidate}"""
             review = await api_json(client, model, REVIEW_SCHEMA, "math_review",
-                                    review_prompt)
+                                    review_prompt, images=images)
             if not review["approved"]:
                 errors = ["MATH REVIEW: " + x for x in review["issues"]] or ["math review rejected without explanation"]
         if not errors:
@@ -419,6 +573,128 @@ async def process_part(part: int, args, client, reference, spec, master, section
             write_atomic(report_path, json.dumps(report, indent=2, ensure_ascii=False))
 
 
+def load_reviewed_images(job_root: Path, manifest: dict) -> dict[str, ImageInput]:
+    """Load only the reviewed manifest's original job-owned image assets."""
+    images: dict[str, ImageInput] = {}
+    total = 0
+    for asset in manifest["source_assets"]:
+        path = (job_root / asset["path"]).resolve()
+        data = path.read_bytes()
+        total += len(data)
+        if total > MAX_IMAGE_REQUEST_BYTES:
+            raise ValueError(f"Source images exceed {MAX_IMAGE_REQUEST_BYTES} byte request limit")
+        images[asset["asset_id"]] = ImageInput(
+            filename=path.name,
+            mime_type=asset["mime_type"],
+            data=data,
+        )
+    return images
+
+
+async def process_reviewed_questions(args, client, reference, spec, master,
+                                     manifest: dict, job_root: Path,
+                                     question_semaphore) -> dict:
+    """Generate the standard aggregate YAML from an approved image manifest."""
+    out = args.output
+    out.mkdir(parents=True, exist_ok=True)
+    synthetic_inventory = {
+        "part": 1,
+        "section_title": "Reviewed image questions",
+        "questions": [
+            {
+                "id": question["id"],
+                "problem": question["problem"],
+                "source_page": 0,
+                "notes": question["notes"],
+            }
+            for question in manifest["questions"]
+        ],
+    }
+    inventory_path = out / "inventories" / "reviewed_questions.json"
+    write_atomic(inventory_path, json.dumps(synthetic_inventory, indent=2, ensure_ascii=False))
+    path = out / "part_01_animations.yaml"
+    report_path = out / "reports" / "part_01.json"
+    report = {
+        "part": 1,
+        "status": "failed",
+        "input_kind": "image",
+        "question_ids": [question["id"] for question in manifest["questions"]],
+        "generated_files": [],
+        "questions": {},
+        "issues": [],
+    }
+    all_images = load_reviewed_images(job_root, manifest)
+
+    jobs = []
+    for question in manifest["questions"]:
+        ident = question["id"]
+        slug = re.sub(r"[^A-Za-z0-9_.-]", "_", ident)
+        fragment = out / "fragments" / "part_01" / f"{slug}.yaml"
+        associated = [all_images[asset_id] for asset_id in question["source_assets"]]
+        source_context = {
+            "source_assets": [
+                asset for asset in manifest["source_assets"]
+                if asset["asset_id"] in question["source_assets"]
+            ],
+            "source_regions": question.get("source_regions", []),
+            "notes": question["notes"],
+        }
+        entry = {
+            "id": ident,
+            "problem": question["problem"],
+            "source_page": 0,
+            "notes": question["notes"],
+        }
+
+        async def job(entry=entry, target=fragment, associated=associated,
+                      source_context=source_context):
+            async with question_semaphore:
+                try:
+                    val = await generate_question(
+                        client, args.model, 1, entry, reference, spec, master,
+                        target, args.force, not args.skip_math_review,
+                        args.max_repairs, images=associated,
+                        source_context=source_context, image_mode=True)
+                    return entry["id"], val, str(target), None
+                except Exception as exc:
+                    return entry["id"], None, str(target), str(exc)
+
+        jobs.append(job())
+
+    outcomes = await asyncio.gather(*jobs)
+    report["questions"] = {
+        str(qid): {
+            "status": "failed" if err else "passed",
+            "file": fragment if not err else None,
+            "error": err,
+        }
+        for qid, _, fragment, err in outcomes
+    }
+    failed = [f"{qid}: {err}" for qid, _, _, err in outcomes if err]
+    if failed:
+        report["issues"] = failed
+        write_atomic(report_path, json.dumps(report, indent=2, ensure_ascii=False))
+        return report
+
+    data = {
+        "video": copy.deepcopy(reference["video"]),
+        "questions": {normalize_question_id(qid): q for qid, q, _, _ in outcomes},
+    }
+    problems = validate_part(data, synthetic_inventory, spec, reference)
+    if problems:
+        report["issues"] = problems
+        write_atomic(report_path, json.dumps(report, indent=2, ensure_ascii=False))
+        return report
+
+    write_atomic(path, dump_yaml(data))
+    report["status"] = ("passed_structural_and_math_review"
+                        if not args.skip_math_review else "passed_structural_only")
+    report["generated_files"] = [str(path)] + [fragment for _, _, fragment, _ in outcomes]
+    report["issues"] = []
+    write_atomic(report_path, json.dumps(report, indent=2, ensure_ascii=False))
+    return report
+
+
 def parse_parts(spec: str) -> list[int]:
     values = []
     for segment in spec.split(","):
@@ -459,6 +735,20 @@ async def main(args):
         return 0
     if args.validate_only:
         failure_count = 0
+        if args.questions_json:
+            try:
+                manifest, job_root = load_reviewed_manifest(args.questions_json, args.job_root)
+                inv = json.loads((args.output / "inventories" / "reviewed_questions.json").read_text(encoding="utf-8"))
+                issues = validate_part(
+                    read_yaml(args.output / "part_01_animations.yaml"),
+                    inv,
+                    spec,
+                    reference,
+                )
+            except Exception as exc:
+                issues = [str(exc)]
+            print("REVIEWED QUESTIONS: " + ("PASS" if not issues else f"FAIL {issues}"))
+            return bool(issues)
         for part in args.parts:
             path = args.output / f"part_{part:02d}_animations.yaml"
             invpath = args.output / "inventories" / f"part_{part:02d}.json"
@@ -470,6 +760,36 @@ async def main(args):
             print(f"PART {part}: " + ("PASS" if not issues else f"FAIL {issues}"))
             failure_count += bool(issues)
         return bool(failure_count)
+    if args.questions_json:
+        manifest, job_root = load_reviewed_manifest(args.questions_json, args.job_root)
+        if not os.getenv("OPENROUTER_API_KEY"):
+            raise RuntimeError("OPENROUTER_API_KEY is not set (set in environment, never in script).")
+        client = OpenRouterClient(
+            api_key=os.environ["OPENROUTER_API_KEY"],
+            timeout=args.timeout,
+            format_mode=args.format_mode,
+            max_tokens=args.max_tokens,
+            max_retries=args.api_retries,
+        )
+        master = args.prompt.read_text(encoding="utf-8")
+        if args.layout_prompt and args.layout_prompt.is_file():
+            master += "\n\n" + args.layout_prompt.read_text(encoding="utf-8")
+        LOG.info("Using explicitly approved image-question manifest; source assets remain job-owned")
+        question_semaphore = asyncio.Semaphore(args.question_concurrency)
+        try:
+            report = await process_reviewed_questions(
+                args, client, reference, spec, master, manifest, job_root,
+                question_semaphore,
+            )
+            print(f"Reviewed questions: {report['status']}" +
+                  (f" {report['issues']}" if report["issues"] else ""))
+            if client.usage:
+                usage_path = args.output / "openrouter_usage.json"
+                write_atomic(usage_path, json.dumps(client.usage, indent=2, ensure_ascii=False))
+                LOG.info("OpenRouter usage saved to %s", usage_path)
+            return int(report["status"] == "failed")
+        finally:
+            await client.close()
     sections = load_sections(args.sections)
     if any(p not in sections for p in args.parts):
         raise ValueError(f"Selected part is not in {args.sections}; available: {sorted(sections)}")
@@ -551,7 +871,14 @@ def arguments():
         ROOT / "physics_layout_prompt.txt",
     )
     p.add_argument("--parts", type=parse_parts, default=parse_parts("1-7"))
-    p.add_argument("--pdf", type=Path, default=PROJECT_ROOT / "Physics-Grade10-12_tips_tricks-OK.pdf")
+    input_group = p.add_mutually_exclusive_group()
+    input_group.add_argument("--pdf", type=Path,
+                             default=PROJECT_ROOT / "Physics-Grade10-12_tips_tricks-OK.pdf",
+                             help="Physics workbook PDF (existing PDF mode)")
+    input_group.add_argument("--questions-json", type=Path,
+                             help="Approved reviewed image questions JSON (image mode)")
+    p.add_argument("--job-root", type=Path,
+                   help="Job root for image assets; inferred from --questions-json by default")
     p.add_argument("--reference", type=Path, default=default_reference)
     p.add_argument("--prompt", type=Path, default=default_prompt)
     p.add_argument("--layout-prompt", type=Path, default=default_layout_prompt,

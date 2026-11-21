@@ -7,19 +7,56 @@ import logging
 import os
 import random
 import re
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 import httpx
 
 LOG = logging.getLogger('manim-generator')
 ENDPOINT = 'https://openrouter.ai/api/v1'
+MAX_IMAGES = 8
+MAX_IMAGE_BYTES = 10 * 1024 * 1024
+MAX_IMAGE_REQUEST_BYTES = 20 * 1024 * 1024
+IMAGE_MIME_TYPES = frozenset({'image/jpeg', 'image/png'})
+
+
+@dataclass(frozen=True)
+class ImageInput:
+    """Validated image bytes to include in a multimodal OpenRouter request."""
+
+    filename: str
+    mime_type: str
+    data: bytes
 
 
 def pdf_part(data: bytes, filename='source.pdf') -> dict:
     """OpenRouter universal PDF input (including text-only models via file-parser)."""
     return {'type': 'file', 'file': {'filename': filename,
             'file_data': 'data:application/pdf;base64,' + base64.b64encode(data).decode('ascii')}}
+
+
+def image_part(image: ImageInput) -> dict:
+    """Build the OpenAI-compatible image content item used by OpenRouter."""
+    _validate_image(image)
+    encoded = base64.b64encode(image.data).decode('ascii')
+    return {'type': 'image_url', 'image_url': {
+        'url': f'data:{image.mime_type};base64,{encoded}'}}
+
+
+def _validate_image(image: ImageInput) -> None:
+    if not isinstance(image, ImageInput):
+        raise TypeError('images must contain ImageInput values')
+    if image.mime_type not in IMAGE_MIME_TYPES:
+        raise ValueError(f'Unsupported image MIME type: {image.mime_type!r}')
+    if not image.filename or image.filename != Path(image.filename).name:
+        raise ValueError('Image filename must be a non-empty basename')
+    if not isinstance(image.data, bytes):
+        raise TypeError('Image data must be bytes')
+    if not image.data:
+        raise ValueError('Image data must not be empty')
+    if len(image.data) > MAX_IMAGE_BYTES:
+        raise ValueError(f'Image exceeds {MAX_IMAGE_BYTES} byte limit')
 
 
 def extract_json(content: str) -> Any:
@@ -70,8 +107,21 @@ class OpenRouterClient:
                 if query.lower() in (x.get('id') or '').lower()]
 
     async def json(self, model: str, schema: dict, name: str,
-                   text: str, pdf: bytes | None = None, filename='source.pdf') -> dict:
+                   text: str, pdf: bytes | None = None, filename='source.pdf',
+                   images: Sequence[ImageInput] | None = None) -> dict:
         """Use schema when available, then permissive mode for any text-output model."""
+        image_inputs = tuple(images or ())
+        if image_inputs and pdf is not None:
+            raise ValueError('PDF and image inputs cannot be combined')
+        if len(image_inputs) > MAX_IMAGES:
+            raise ValueError(f'At most {MAX_IMAGES} images may be included')
+        image_bytes = 0
+        for image in image_inputs:
+            _validate_image(image)
+            image_bytes += len(image.data)
+        if image_bytes > MAX_IMAGE_REQUEST_BYTES:
+            raise ValueError(f'Images exceed {MAX_IMAGE_REQUEST_BYTES} byte request limit')
+
         modes = ({'auto': ['json_schema', 'json_object', 'prompt'],
                   'json_schema': ['json_schema'],
                   'json_object': ['json_object'],
@@ -81,6 +131,7 @@ class OpenRouterClient:
             + json.dumps(schema, ensure_ascii=False)}]
         if pdf is not None:
             parts.append(pdf_part(pdf, filename))
+        parts.extend(image_part(image) for image in image_inputs)
         last_error = None
         for mode in modes:
             request = {
